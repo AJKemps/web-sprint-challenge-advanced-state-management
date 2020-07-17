@@ -1,16 +1,30 @@
-import React, { Component } from "react";
+import React from "react";
+import { connect } from "react-redux";
+import { getSmurfs } from "../actions/smurfActions";
+import SmurfCard from "../components/smurfCard";
 import "./App.css";
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <h1>SMURFS! 2.0 W/ Redux</h1>
-        <div>Welcome to your state management version of Smurfs!</div>
-        <div>Start inside of your `src/index.js` file!</div>
-        <div>Have fun!</div>
-      </div>
-    );
-  }
+
+function App(props) {
+  const clickHandler = (event) => {
+    event.preventDefault();
+    props.getSmurfs();
+  };
+
+  return (
+    <div className="App">
+      <h1>SMURFS! 2.0 W/ Redux</h1>
+      <div>Welcome to your state management version of Smurfs!</div>
+      <button onClick={clickHandler}>GET SMURFS</button>
+      <SmurfCard props={props} />
+    </div>
+  );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isFetching: state.isFetching,
+    smurfs: state.smurfs,
+  };
+};
+
+export default connect(mapStateToProps, { getSmurfs })(App);
