@@ -14,6 +14,9 @@ const SmurfForm = (props) => {
       age: age,
       height: height,
     });
+    setName("name");
+    setAge("age");
+    setHeight("height");
   };
 
   const handleNameChanges = (event) => {
